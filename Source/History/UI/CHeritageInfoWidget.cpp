@@ -2,4 +2,5 @@
 
 
 #include "UI/CHeritageInfoWidget.h"
+#include "Components/TextBlock.h"
 
