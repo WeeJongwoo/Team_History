@@ -1,3 +1,0 @@
-금일 진행한 내용을 구현할 때 
-Actor나 ActorComponent가 아닌 주 기능에 사용되는 SphereComponent를 상속받아 구현했다면 훨씬 쉽게 구현할 수 있었을 것 같다.
- --> 금일 수정예정
