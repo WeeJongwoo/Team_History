@@ -37,4 +37,5 @@ protected:
 	UPROPERTY(VisibleAnywhere, Category = Heritage)
 	TObjectPtr<class UCHeritageWidgetComponent> HeritageInfo;
 
+	TObjectPtr<class ACStagePassGimmick> StagePassGimmick;
 };

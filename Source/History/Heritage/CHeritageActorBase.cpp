@@ -5,6 +5,7 @@
 #include "UI/CHeritageWidgetComponent.h"
 #include "UI/CHeritageInfoWidget.h"
 #include "Components/SphereComponent.h"
+#include "Gimmick/CStagePassGimmick.h"
 
 // Sets default values
 ACHeritageActorBase::ACHeritageActorBase()
@@ -30,6 +31,12 @@ ACHeritageActorBase::ACHeritageActorBase()
 		HeritageInfo->SetWidgetClass(HeritageInfoWidgetRef.Class);
 		HeritageInfo->SetWidgetSpace(EWidgetSpace::Screen);
 		HeritageInfo->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	}
+
+	static ConstructorHelpers::FObjectFinder<ACStagePassGimmick> StagePassGimmickRef(TEXT("/Game/Project_History/Gimmick/BP_StagePassGimmick.BP_StagePassGimmick"));
+	if (StagePassGimmickRef.Object)
+	{
+		StagePassGimmick = StagePassGimmickRef.Object;
 	}
 }
 
@@ -67,7 +74,12 @@ void ACHeritageActorBase::InteractHeritage()
 		UE_LOG(LogTemp, Log, TEXT("First OnInteractionTriggerBeginOverlap"));
 		bIsFirstInteraction = false;
 
-
+		ACStagePassGimmick* StageGimmick = Cast<ACStagePassGimmick>(StagePassGimmick);
+		if (StageGimmick != nullptr) 
+		{
+			UE_LOG(LogTemp, Log, TEXT("Increasing"));
+			StageGimmick->IncreaseCount();
+		}
 	}
 	else
 	{
