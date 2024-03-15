@@ -6,6 +6,15 @@
 #include "GameFramework/Actor.h"
 #include "CNPCMovementPath.generated.h"
 
+UENUM()
+enum class NPCState : uint8
+{
+	Move = 0,
+	Stop,
+	BeginMove
+};
+
+
 UCLASS()
 class HISTORY_API ACNPCMovementPath : public AActor
 {
@@ -23,6 +32,13 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+protected:
+
+	void MoveStart();
+
+	void MoveStop(float InCurrentSplineTime, float InDistance);
+	
+	void ClearStopData();
 
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
@@ -31,5 +47,24 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	TObjectPtr<class USplineComponent> MovementPath;
 
-	//TObjectPtr<class> NPC
+	UPROPERTY(EditDefaultsOnly, Category = "MoveActor")
+	TSubclassOf<class AActor> NPCClass;
+
+	AActor* MoveNPC;
+
+	UPROPERTY(EditAnywhere, Category = "MoveActor")
+	float TotalPathTimeController;
+
+	//UPROPERTY(EditAnywhere)
+	//int32 bSplineInLoop : 1;
+	UPROPERTY(EditAnywhere, Category = "MoveActor")
+	uint8 bCanMoveNPC : 1;
+
+	float StartTime;
+
+	float CurrentSplineTime;
+	float Distance;
+
+	float StopSplineTime;
+	float StopDistance;
 };
