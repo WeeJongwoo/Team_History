@@ -6,6 +6,7 @@
 #include "Han/UI/CHeritageInfoWidget.h"
 #include "Components/SphereComponent.h"
 #include "Han/Gimmick/CCheckpointGimmick.h"
+#include "Han/GameData/CHistorySingleton.h"
 
 // Sets default values
 ACHeritageActorBase::ACHeritageActorBase()
@@ -70,12 +71,7 @@ void ACHeritageActorBase::InteractHeritage()
 		UE_LOG(LogTemp, Log, TEXT("First OnInteractionTriggerBeginOverlap"));
 		bIsFirstInteraction = false;
 
-		//ACStagePassGimmick* StageGimmick = Cast<ACStagePassGimmick>(StagePassGimmick);
-		//if (StageGimmick != nullptr)
-		//{
-		//	UE_LOG(LogTemp, Log, TEXT("Increasing"));
-		//	StageGimmick->IncreaseCount();
-		//}
+		UCHistorySingleton::Get().IncreaseInteractionNum();
 	}
 	else
 	{

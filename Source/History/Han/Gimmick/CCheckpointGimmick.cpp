@@ -3,6 +3,7 @@
 
 #include "Han/Gimmick/CCheckpointGimmick.h"
 #include "Components/BoxComponent.h"
+#include "Han/GameData/CHistorySingleton.h"
 
 // Sets default values
 ACCheckpointGimmick::ACCheckpointGimmick()
@@ -30,5 +31,14 @@ void ACCheckpointGimmick::OnConstruction(const FTransform& Transform)
 
 void ACCheckpointGimmick::OnCheckpointBoxTriggerBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	UE_LOG(LogTemp, Log, TEXT("OnCheckpointBoxTriggerBeginOverlap"));
+	uint16 CurrentCount = UCHistorySingleton::Get().GetCurrentInteractionNum();
+	uint16 Baseline = UCHistorySingleton::Get().GetInteractionBaseline();
+	if (CurrentCount >= Baseline)
+	{
+		UE_LOG(LogTemp, Log, TEXT("OnCheckpointBoxTriggerBeginOverlap : Pass"));
+	}
+	else
+	{
+		UE_LOG(LogTemp, Log, TEXT("OnCheckpointBoxTriggerBeginOverlap : Fail"));
+	}
 }
