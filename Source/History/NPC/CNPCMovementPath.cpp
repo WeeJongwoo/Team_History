@@ -36,7 +36,7 @@ void ACNPCMovementPath::BeginPlay()
 		MoveNPC = GetWorld()->SpawnActor<AActor>(NPCClass, MovementPath->GetComponentTransform());
 		if (MoveNPC != nullptr)
 		{
-			bCanMoveNPC = true;
+			Move();
 		}
 	}
 }
@@ -63,11 +63,21 @@ void ACNPCMovementPath::Tick(float DeltaTime)
 		{
 			if (/*bSplineInLoop*/MovementPath->IsClosedLoop())
 			{
-				bCanMoveNPC = true;
+				Move();
 
 				DeltaSeconds = 0.0f;
 			}
 		}
 	}
+}
+
+void ACNPCMovementPath::Move()
+{
+	bCanMoveNPC = true;
+}
+
+void ACNPCMovementPath::MoveStop()
+{
+	bCanMoveNPC = false;
 }
 
