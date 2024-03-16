@@ -48,7 +48,10 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "MoveActor")
 	TSubclassOf<class AActor> NPCClass;
 
-	AActor* MoveNPC;
+	UPROPERTY(VisibleAnywhere, Category = "MoveActor")
+	TWeakObjectPtr<class AActor> MoveNPC;
+
+	//AActor* MoveNPC;
 
 	UPROPERTY(EditAnywhere, Category = "MoveActor")
 	float TotalPathTimeController;
