@@ -58,8 +58,6 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "MoveActor")
 	uint8 bCanMoveNPC : 1;
 
-	float StartTime;
-
 	float CurrentSplineTime;
 	float Distance;
 	float DeltaSeconds;
