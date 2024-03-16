@@ -7,7 +7,7 @@
 #include "CHeritageInfoWidget.generated.h"
 
 /**
- * 
+ *
  */
 UCLASS()
 class HISTORY_API UCHeritageInfoWidget : public UUserWidget
@@ -16,12 +16,12 @@ class HISTORY_API UCHeritageInfoWidget : public UUserWidget
 
 public:
 	FORCEINLINE void SetOwningActor(AActor* NewOwner) { OwningActor = NewOwner; }
-//	//void SetTitle(FText NewTitle);
-//	//void SetDesc(FText NewDesc);
-//	
+	//	//void SetTitle(FText NewTitle);
+	//	//void SetDesc(FText NewDesc);
+	//	
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Actor)
 	TObjectPtr<AActor> OwningActor;
-//	TObjectPtr<class UTextBlock> TitleTextBlock;
-//	TObjectPtr<class UTextBlock> DescTextBlock;
+	//	TObjectPtr<class UTextBlock> TitleTextBlock;
+	//	TObjectPtr<class UTextBlock> DescTextBlock;
 };

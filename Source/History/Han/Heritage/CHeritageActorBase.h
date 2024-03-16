@@ -4,15 +4,15 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "Interface/HeritageInteractionInterface.h"
+#include "Han/Interface/CHeritageInteractionInterface.h"
 #include "CHeritageActorBase.generated.h"
 
 UCLASS()
-class HISTORY_API ACHeritageActorBase : public AActor, public IHeritageInteractionInterface
+class HISTORY_API ACHeritageActorBase : public AActor, public ICHeritageInteractionInterface
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 	ACHeritageActorBase();
 
 protected:
@@ -34,8 +34,7 @@ protected:
 	UPROPERTY(EditInstanceOnly, BlueprintReadOnly, Category = Heritage)
 	TObjectPtr<class UStaticMeshComponent> HeritageMeshComponent;
 	TObjectPtr<class USphereComponent> InteractiveArea;
+
 	UPROPERTY(VisibleAnywhere, Category = Heritage)
 	TObjectPtr<class UCHeritageWidgetComponent> HeritageInfo;
-
-	TObjectPtr<class ACStagePassGimmick> StagePassGimmick;
 };

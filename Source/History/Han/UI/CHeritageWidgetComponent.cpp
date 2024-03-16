@@ -1,8 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "UI/CHeritageWidgetComponent.h"
-#include "UI/CHeritageInfoWidget.h"
+#include "Han/UI/CHeritageWidgetComponent.h"
+#include "Han/UI/CHeritageInfoWidget.h"
 
 void UCHeritageWidgetComponent::InitWidget()
 {
@@ -14,3 +14,4 @@ void UCHeritageWidgetComponent::InitWidget()
 		HeritageInfoWidget->SetOwningActor(GetOwner());
 	}
 }
+

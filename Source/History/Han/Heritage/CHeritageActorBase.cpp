@@ -1,11 +1,11 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "Heritage/CHeritageActorBase.h"
-#include "UI/CHeritageWidgetComponent.h"
-#include "UI/CHeritageInfoWidget.h"
+#include "Han/Heritage/CHeritageActorBase.h"
+#include "Han/UI/CHeritageWidgetComponent.h"
+#include "Han/UI/CHeritageInfoWidget.h"
 #include "Components/SphereComponent.h"
-#include "Gimmick/CStagePassGimmick.h"
+#include "Han/Gimmick/CCheckpointGimmick.h"
 
 // Sets default values
 ACHeritageActorBase::ACHeritageActorBase()
@@ -23,9 +23,10 @@ ACHeritageActorBase::ACHeritageActorBase()
 	InteractiveArea->OnComponentEndOverlap.AddDynamic(this, &ACHeritageActorBase::OnInteractionTriggerEndOverlap);
 
 	HeritageInfo = CreateDefaultSubobject<UCHeritageWidgetComponent>(TEXT("HeritageInfo"));
+	HeritageInfo->SetRelativeLocation(FVector(.0f, .0f, 100.f));
 	HeritageInfo->SetupAttachment(RootComponent);
 
-	static ConstructorHelpers::FClassFinder<UCHeritageInfoWidget> HeritageInfoWidgetRef(TEXT("/Game/Project_History/UI/WB_HeritageInfo.WB_HeritageInfo_C"));
+	static ConstructorHelpers::FClassFinder<UCHeritageInfoWidget> HeritageInfoWidgetRef(TEXT("/Game/HanJinHo/UI/WB_CHeritageInfo.WB_CHeritageInfo_C"));
 	if (HeritageInfoWidgetRef.Class)
 	{
 		HeritageInfo->SetWidgetClass(HeritageInfoWidgetRef.Class);
@@ -33,11 +34,6 @@ ACHeritageActorBase::ACHeritageActorBase()
 		HeritageInfo->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	}
 
-	static ConstructorHelpers::FObjectFinder<ACStagePassGimmick> StagePassGimmickRef(TEXT("/Game/Project_History/Gimmick/BP_StagePassGimmick.BP_StagePassGimmick"));
-	if (StagePassGimmickRef.Object)
-	{
-		StagePassGimmick = StagePassGimmickRef.Object;
-	}
 }
 
 // Called when the game starts or when spawned
@@ -74,12 +70,12 @@ void ACHeritageActorBase::InteractHeritage()
 		UE_LOG(LogTemp, Log, TEXT("First OnInteractionTriggerBeginOverlap"));
 		bIsFirstInteraction = false;
 
-		ACStagePassGimmick* StageGimmick = Cast<ACStagePassGimmick>(StagePassGimmick);
-		if (StageGimmick != nullptr) 
-		{
-			UE_LOG(LogTemp, Log, TEXT("Increasing"));
-			StageGimmick->IncreaseCount();
-		}
+		//ACStagePassGimmick* StageGimmick = Cast<ACStagePassGimmick>(StagePassGimmick);
+		//if (StageGimmick != nullptr)
+		//{
+		//	UE_LOG(LogTemp, Log, TEXT("Increasing"));
+		//	StageGimmick->IncreaseCount();
+		//}
 	}
 	else
 	{

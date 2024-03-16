@@ -4,19 +4,19 @@
 
 #include "CoreMinimal.h"
 #include "UObject/Interface.h"
-#include "HeritageInteractionInterface.generated.h"
+#include "CHeritageInteractionInterface.generated.h"
 
 // This class does not need to be modified.
 UINTERFACE(MinimalAPI)
-class UHeritageInteractionInterface : public UInterface
+class UCHeritageInteractionInterface : public UInterface
 {
 	GENERATED_BODY()
 };
 
 /**
- * 
+ *
  */
-class HISTORY_API IHeritageInteractionInterface
+class HISTORY_API ICHeritageInteractionInterface
 {
 	GENERATED_BODY()
 

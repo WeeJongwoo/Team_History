@@ -4,26 +4,27 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "CStagePassGimmick.generated.h"
+#include "CCheckpointGimmick.generated.h"
 
 UCLASS()
-class HISTORY_API ACStagePassGimmick : public AActor
+class HISTORY_API ACCheckpointGimmick : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
-	ACStagePassGimmick();
+	ACCheckpointGimmick();
 
-	FORCEINLINE void IncreaseCount() { CurrentCount++; }
+protected:
+	virtual void BeginPlay() override;
+	virtual void OnConstruction(const FTransform& Transform) override;
 
 	UFUNCTION()
 	void OnCheckpointBoxTriggerBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
 protected:
-	UPROPERTY(EditAnywhere, Category = Checkpoint)
-	float PassableCount;
-	UPROPERTY(VisibleAnywhere, Category = Checkpoint)
-	float CurrentCount;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gimmick)
+	FVector CheckpointScale;
 
 	TObjectPtr<class UBoxComponent> CheckpointBox;
+
 };
