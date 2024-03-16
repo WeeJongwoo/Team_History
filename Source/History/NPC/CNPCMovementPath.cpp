@@ -21,9 +21,7 @@ ACNPCMovementPath::ACNPCMovementPath()
 
 	CurrentSplineTime = 0.0f;
 	Distance = 0.0f;
-
-	StopSplineTime = -1.0f;
-	StopDistance = -1.0f;
+	DeltaSeconds = 0.0f;
 
 	PrimaryActorTick.bCanEverTick = true;
 }
@@ -38,7 +36,6 @@ void ACNPCMovementPath::BeginPlay()
 		MoveNPC = GetWorld()->SpawnActor<AActor>(NPCClass, MovementPath->GetComponentTransform());
 		if (MoveNPC != nullptr)
 		{
-			MoveStart();
 			bCanMoveNPC = true;
 		}
 	}
@@ -51,7 +48,8 @@ void ACNPCMovementPath::Tick(float DeltaTime)
 
 	if (MoveNPC != nullptr && (bCanMoveNPC))
 	{
-		CurrentSplineTime = (GetWorld()->GetTimeSeconds() - StartTime) / TotalPathTimeController;
+		DeltaSeconds += GetWorld()->GetDeltaSeconds();
+		CurrentSplineTime = DeltaSeconds / TotalPathTimeController;
 		Distance = MovementPath->GetSplineLength() * CurrentSplineTime;
 
 		FVector Position = MovementPath->GetLocationAtDistanceAlongSpline(Distance, ESplineCoordinateSpace::World);
@@ -67,31 +65,9 @@ void ACNPCMovementPath::Tick(float DeltaTime)
 			{
 				bCanMoveNPC = true;
 
-				MoveStart();
-
-				//CurrentSplineTime = (GetWorld()->GetTimeSeconds() - StartTime) / TotalPathTimeController;
-				ClearStopData();
+				DeltaSeconds = 0.0f;
 			}
 		}
 	}
-}
-
-void ACNPCMovementPath::MoveStart()
-{
-	StartTime = GetWorld()->GetTimeSeconds();
-}
-
-void ACNPCMovementPath::MoveStop(float InCurrentSplineTime, float InDistance)		//NCP와 플레이어 콜리전 시 델리게이트에 바인딩 해 움직임 멈추는 함수 이후 NPC움직임
-{
-	bCanMoveNPC = false;
-
-	StopSplineTime = CurrentSplineTime;
-	StopDistance = Distance;
-}
-
-void ACNPCMovementPath::ClearStopData()											// 다시 움직이기 시작할 때 초기화 하는 함수
-{
-	StopSplineTime = -1.0f;
-	StopDistance = -1.0f;
 }
 

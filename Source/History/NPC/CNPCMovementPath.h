@@ -33,14 +33,6 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 protected:
-
-	void MoveStart();
-
-	void MoveStop(float InCurrentSplineTime, float InDistance);
-	
-	void ClearStopData();
-
-protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	USceneComponent* Root;
 
@@ -64,7 +56,5 @@ protected:
 
 	float CurrentSplineTime;
 	float Distance;
-
-	float StopSplineTime;
-	float StopDistance;
+	float DeltaSeconds;
 };
