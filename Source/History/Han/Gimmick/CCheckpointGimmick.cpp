@@ -4,6 +4,7 @@
 #include "Han/Gimmick/CCheckpointGimmick.h"
 #include "Components/BoxComponent.h"
 #include "Kismet/GameplayStatics.h"
+#include "Han/GameData/CHistorySingleton.h"
 
 // Sets default values
 ACCheckpointGimmick::ACCheckpointGimmick()
@@ -21,6 +22,9 @@ ACCheckpointGimmick::ACCheckpointGimmick()
 void ACCheckpointGimmick::BeginPlay()
 {
 	DrawDebugBox(GetWorld(), GetActorLocation(), CheckpointScale, FColor::Black, false, 1000.0f);
+
+	UCHistorySingleton& Singleton = UCHistorySingleton::Get();
+
 }
 
 void ACCheckpointGimmick::OnConstruction(const FTransform& Transform)
@@ -34,9 +38,21 @@ void ACCheckpointGimmick::OnCheckpointBoxTriggerBeginOverlap(UPrimitiveComponent
 {
 	UE_LOG(LogTemp, Log, TEXT("OnCheckpointBoxTriggerBeginOverlap"));
 
-	ACHistoryLevelScriptActor* CurrentLevelScript = Cast<ACHistoryLevelScriptActor>(GetWorld()->GetLevelScriptActor());
-	if (CurrentLevelScript != nullptr && CurrentLevelScript->IsPassable())
+	UCHistorySingleton& Singleton = UCHistorySingleton::Get();
+	/*if (Singleton.FindTraveledLevel(NextStageName))
 	{
 		UGameplayStatics::OpenLevel(GetWorld(), NextStageName);
 	}
+	else
+	{
+		ACHistoryLevelScriptActor* CurrentLevelScript = Cast<ACHistoryLevelScriptActor>(GetWorld()->GetLevelScriptActor());
+		if (CurrentLevelScript != nullptr && CurrentLevelScript->IsPassable())
+		{
+			Singleton.AddTraveledLevel(NextStageName);
+			UGameplayStatics::OpenLevel(GetWorld(), NextStageName);
+		}
+	}*/
+
+
+	
 }
