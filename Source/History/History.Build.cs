@@ -10,7 +10,7 @@ public class History : ModuleRules
 
 		PublicIncludePaths.AddRange(new string[] { "History" });
 	
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "UMG" });
+		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "UMG" , "EnhancedInput" });
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 
