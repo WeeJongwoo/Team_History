@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Han/LevelScript/CHistoryLevelScriptActor.h"
 #include "CCheckpointGimmick.generated.h"
 
 UCLASS()
@@ -27,4 +28,6 @@ protected:
 
 	TObjectPtr<class UBoxComponent> CheckpointBox;
 
+	UPROPERTY(EditAnywhere, Category = Heritage)
+	FName NextStageName;
 };

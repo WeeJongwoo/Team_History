@@ -3,7 +3,7 @@
 
 #include "Han/Gimmick/CCheckpointGimmick.h"
 #include "Components/BoxComponent.h"
-#include "Han/GameData/CHistorySingleton.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 ACCheckpointGimmick::ACCheckpointGimmick()
@@ -15,11 +15,12 @@ ACCheckpointGimmick::ACCheckpointGimmick()
 	CheckpointBox->OnComponentBeginOverlap.AddDynamic(this, &ACCheckpointGimmick::OnCheckpointBoxTriggerBeginOverlap);
 
 	RootComponent = CheckpointBox;
+
 }
 
 void ACCheckpointGimmick::BeginPlay()
 {
-	//DrawDebugBox(GetWorld(), GetActorLocation(), CheckpointScale, FColor::Black, false, 1000.0f);
+	DrawDebugBox(GetWorld(), GetActorLocation(), CheckpointScale, FColor::Black, false, 1000.0f);
 }
 
 void ACCheckpointGimmick::OnConstruction(const FTransform& Transform)
@@ -31,14 +32,11 @@ void ACCheckpointGimmick::OnConstruction(const FTransform& Transform)
 
 void ACCheckpointGimmick::OnCheckpointBoxTriggerBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	uint16 CurrentCount = UCHistorySingleton::Get().GetCurrentInteractionNum();
-	uint16 Baseline = UCHistorySingleton::Get().GetInteractionBaseline();
-	if (CurrentCount >= Baseline)
+	UE_LOG(LogTemp, Log, TEXT("OnCheckpointBoxTriggerBeginOverlap"));
+
+	ACHistoryLevelScriptActor* CurrentLevelScript = Cast<ACHistoryLevelScriptActor>(GetWorld()->GetLevelScriptActor());
+	if (CurrentLevelScript != nullptr && CurrentLevelScript->IsPassable())
 	{
-		UE_LOG(LogTemp, Log, TEXT("OnCheckpointBoxTriggerBeginOverlap : Pass"));
-	}
-	else
-	{
-		UE_LOG(LogTemp, Log, TEXT("OnCheckpointBoxTriggerBeginOverlap : Fail"));
+		UGameplayStatics::OpenLevel(GetWorld(), NextStageName);
 	}
 }

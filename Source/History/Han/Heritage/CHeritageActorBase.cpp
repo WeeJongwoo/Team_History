@@ -6,7 +6,7 @@
 #include "Han/UI/CHeritageInfoWidget.h"
 #include "Components/SphereComponent.h"
 #include "Han/Gimmick/CCheckpointGimmick.h"
-#include "Han/GameData/CHistorySingleton.h"
+#include "Han/LevelScript/CHistoryLevelScriptActor.h"
 
 // Sets default values
 ACHeritageActorBase::ACHeritageActorBase()
@@ -71,7 +71,11 @@ void ACHeritageActorBase::InteractHeritage()
 		UE_LOG(LogTemp, Log, TEXT("First OnInteractionTriggerBeginOverlap"));
 		bIsFirstInteraction = false;
 
-		UCHistorySingleton::Get().IncreaseInteractionNum();
+		ACHistoryLevelScriptActor* CurrentLevelScript = Cast<ACHistoryLevelScriptActor>(GetWorld()->GetLevelScriptActor());
+		if (CurrentLevelScript != nullptr)
+		{
+			CurrentLevelScript->IncreaseInteractionNum();
+		}
 	}
 	else
 	{
