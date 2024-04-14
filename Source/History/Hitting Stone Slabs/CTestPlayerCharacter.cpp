@@ -30,6 +30,7 @@ ACTestPlayerCharacter::ACTestPlayerCharacter()
 	SkeletalMesh->SetRelativeLocation(FVector(-30.f, 0.f, -150.f));
 
 	GrapHandle = CreateDefaultSubobject<UPhysicsHandleComponent>(TEXT("GrabHandle"));
+	GrapHandle->SetInterpolationSpeed(10.0f);
 }
 
 // Called when the game starts or when spawned
