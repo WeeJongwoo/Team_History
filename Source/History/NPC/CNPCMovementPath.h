@@ -53,12 +53,12 @@ protected:
 
 	//AActor* MoveNPC;
 
-	UPROPERTY(EditAnywhere, Category = "MoveActor")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "MoveActor")
 	float TotalPathTimeController;
 
 	//UPROPERTY(EditAnywhere)
 	//int32 bSplineInLoop : 1;
-	UPROPERTY(EditAnywhere, Category = "MoveActor")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite ,Category = "MoveActor")
 	uint8 bCanMoveNPC : 1;
 
 	float CurrentSplineTime;
