@@ -15,6 +15,8 @@ public:
 	// Sets default values for this actor's properties
 	ACStonTestSpawner();
 
+	virtual void PostInitializeComponents() override;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -23,15 +25,18 @@ protected:
 	TObjectPtr<class USplineComponent> SpawnPoints;
 
 	UPROPERTY(EditAnywhere, Category = SpawnTargetActor)
-	TSubclassOf<class ACSton> Ston;
+	TSubclassOf<class ACStone> StoneClass;
 
-	
-	TArray<class ACSTon> Targets;
+	UPROPERTY()
+	TArray<TObjectPtr<class ACStone>> Targets;
 	
 
+	int32 NumberOfDawnStones;
 
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	UFUNCTION()
+	void CountDownStone();
 };

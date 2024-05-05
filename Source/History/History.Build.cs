@@ -8,15 +8,9 @@ public class History : ModuleRules
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 
-<<<<<<< HEAD
         PublicIncludePaths.AddRange(new string[] { "History" });
 
         PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "UMG", "EnhancedInput" });
-=======
-		PublicIncludePaths.AddRange(new string[] { "History" });
-	
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "UMG" });
->>>>>>> parent of cd4c968 (Merge pull request #8 from JEASSOH/Team_History_WooJaeYeong)
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 
