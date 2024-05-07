@@ -8,13 +8,6 @@
 
 DECLARE_DELEGATE(IsDown);
 
-UENUM()
-enum class StoneState {
-	Standing = 0,
-	Down
-};
-
-
 UCLASS()
 class HISTORY_API ACStone : public AActor
 {
@@ -28,16 +21,12 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	StoneState State;
-
 	UPROPERTY(EditAnywhere, Category = Mesh)
 	TObjectPtr<class UStaticMeshComponent> StoneMesh;
 
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-
-	StoneState GetStoneState();
 
 	IsDown Down;
 };

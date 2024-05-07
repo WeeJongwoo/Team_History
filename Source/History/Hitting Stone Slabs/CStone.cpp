@@ -21,8 +21,6 @@ ACStone::ACStone()
 	}
 	StoneMesh->SetCollisionProfileName(FName("TestObject"));
 	StoneMesh->SetSimulatePhysics(true);
-
-	State = StoneState::Standing;
 }
 
 // Called when the game starts or when spawned
@@ -39,7 +37,6 @@ void ACStone::Tick(float DeltaTime)
 
 	if (FMath::Abs(GetActorUpVector().Z) <= 0.1)
 	{
-		State = StoneState::Down;
 
 		if (Down.IsBound())
 		{
@@ -49,9 +46,3 @@ void ACStone::Tick(float DeltaTime)
 	}
 
 }
-
-StoneState ACStone::GetStoneState()
-{
-	return State;
-}
-
