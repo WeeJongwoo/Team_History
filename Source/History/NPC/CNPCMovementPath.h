@@ -32,13 +32,11 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-protected:
+	UFUNCTION(BlueprintCallable)
+	void MoveStop();
 
-	void MoveStart();
-
-	void MoveStop(float InCurrentSplineTime, float InDistance);
-	
-	void ClearStopData();
+	UFUNCTION(BlueprintCallable)
+	void Move();
 
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
@@ -50,21 +48,20 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "MoveActor")
 	TSubclassOf<class AActor> NPCClass;
 
-	AActor* MoveNPC;
+	UPROPERTY(VisibleAnywhere, Category = "MoveActor")
+	TWeakObjectPtr<class AActor> MoveNPC;
 
-	UPROPERTY(EditAnywhere, Category = "MoveActor")
+	//AActor* MoveNPC;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "MoveActor")
 	float TotalPathTimeController;
 
 	//UPROPERTY(EditAnywhere)
 	//int32 bSplineInLoop : 1;
-	UPROPERTY(EditAnywhere, Category = "MoveActor")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite ,Category = "MoveActor")
 	uint8 bCanMoveNPC : 1;
-
-	float StartTime;
 
 	float CurrentSplineTime;
 	float Distance;
-
-	float StopSplineTime;
-	float StopDistance;
+	float DeltaSeconds;
 };
