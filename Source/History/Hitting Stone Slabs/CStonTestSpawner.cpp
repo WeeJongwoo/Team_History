@@ -4,6 +4,8 @@
 #include "Hitting Stone Slabs/CStonTestSpawner.h"
 #include "Components/SplineComponent.h"
 #include "CStone.h"
+#include "UI/HistoryStoneHUD.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 ACStonTestSpawner::ACStonTestSpawner()
@@ -15,15 +17,32 @@ ACStonTestSpawner::ACStonTestSpawner()
 
 	StoneClass = ACStone::StaticClass();
 
-	NumberOfDawnStones = 0;
+	NumberOfStandingStones = -1;
+	LogCount = 0;
 
+
+	static ConstructorHelpers::FClassFinder<UHistoryStoneHUD> StoneHUDRef(TEXT("/Game/WeeJongWoo/Blueprint/UI/WBP_StoneHUD.WBP_StoneHUD_C"));
+	if (StoneHUDRef.Class)
+	{
+		HistoryStoneHUDClass = StoneHUDRef.Class;
+	}
 }
 
 // Called when the game starts or when spawned
 void ACStonTestSpawner::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
+	APlayerController* Controller = UGameplayStatics::GetPlayerController(GetWorld(), 0);
+
+	//GetPlayerController(GetWorld(), 0);
+
+	HistoryStoneHUD = CreateWidget<UHistoryStoneHUD>(Controller, HistoryStoneHUDClass);
+	if (HistoryStoneHUD)
+	{
+		HistoryStoneHUD->AddToViewport();
+		HistoryStoneHUD->UpdateCount(NumberOfStandingStones);
+	}
 }
 
 void ACStonTestSpawner::PostInitializeComponents()
@@ -43,6 +62,8 @@ void ACStonTestSpawner::PostInitializeComponents()
 			Targets.Add(NewStone);
 		}
 	}
+
+	NumberOfStandingStones = Targets.Num();
 }
 
 // Called every frame
@@ -50,12 +71,20 @@ void ACStonTestSpawner::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	if (NumberOfDawnStones >= Targets.Num())
-		UE_LOG(LogTemp, Log, TEXT("Clear"));
+	if (NumberOfStandingStones == 0)
+	{
+		if (LogCount == 0)
+		{
+			UE_LOG(LogTemp, Log, TEXT("Clear"));
+			LogCount++;
+			HistoryStoneHUD->IsClear();
+		}
+	}
 }
 
 void ACStonTestSpawner::CountDownStone()
 {
-	NumberOfDawnStones++;
+	NumberOfStandingStones--;
+	HistoryStoneHUD->UpdateCount(NumberOfStandingStones);
 }
 

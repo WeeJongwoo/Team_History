@@ -30,8 +30,15 @@ protected:
 	UPROPERTY()
 	TArray<TObjectPtr<class ACStone>> Targets;
 	
+	int8 LogCount;
 
-	int32 NumberOfDawnStones;
+	int32 NumberOfStandingStones;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = HUD)
+	TSubclassOf<class UHistoryStoneHUD> HistoryStoneHUDClass;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = HUD)
+	TObjectPtr<class UHistoryStoneHUD> HistoryStoneHUD;
 
 public:	
 	// Called every frame

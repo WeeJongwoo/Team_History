@@ -55,7 +55,7 @@ void ACTestPlayerCharacter::Tick(float DeltaTime)
 
 	if (IsHit)
 	{
-		GrapHandle->SetTargetLocation(Camera->GetComponentLocation() + Camera->GetComponentRotation().Vector() * 500.0f);
+		GrapHandle->SetTargetLocation(Camera->GetComponentLocation() + Camera->GetComponentRotation().Vector() * 250.0f);
 		UE_LOG(LogTemp, Log, TEXT("%s"), *GrabTarget.GetActor()->GetActorLocation().ToString())
 	}
 }
