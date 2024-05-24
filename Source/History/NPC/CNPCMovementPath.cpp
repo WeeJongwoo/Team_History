@@ -52,7 +52,7 @@ void ACNPCMovementPath::Tick(float DeltaTime)
 		CurrentSplineTime = DeltaSeconds / TotalPathTimeController;
 		Distance = MovementPath->GetSplineLength() * CurrentSplineTime;
 
-		FVector Position = MovementPath->GetLocationAtDistanceAlongSpline(Distance, ESplineCoordinateSpace::World) + FVector::UpVector*96.0f;
+		FVector Position = (MovementPath->GetLocationAtDistanceAlongSpline(Distance, ESplineCoordinateSpace::World) + (FVector::UpVector *98.0f));
 		MoveNPC->SetActorLocation(Position);
 
 		FVector Direction = MovementPath->GetDirectionAtDistanceAlongSpline(Distance, ESplineCoordinateSpace::World);
