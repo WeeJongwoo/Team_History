@@ -21,6 +21,7 @@ ACStone::ACStone()
 	}
 	StoneMesh->SetCollisionProfileName(FName("TestObject"));
 	StoneMesh->SetSimulatePhysics(true);
+	StoneMesh->SetWorldRotation(FRotator(0.f, 90.f, 0.f));
 }
 
 // Called when the game starts or when spawned
